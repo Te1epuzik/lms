@@ -5,82 +5,104 @@ import styles from "../styles/accountButton.module.scss";
 import { AvatarSVG } from "@/SVG/AvatarSVG/AvatarSVG";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/store";
-import { CustomLink } from "@/shared";
+import { Button, CustomLink } from "@/shared";
+import { useResize } from "@/hooks";
+import { usePathname } from "next/navigation";
 
 type TMenuItem = {
   name: string;
   link: string;
 };
 
-export const AccountButton = () => {
+type TProps = Readonly<{
+  userName?: string;
+}>;
+
+export const AccountButton = ({ userName = "User" }: TProps) => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const role = useAuthStore((state) => state.role);
+  const [isOnLogInPage, setIsOnLogInPage] = useState<boolean>(false);
   const [menuList, setMenuList] = useState<TMenuItem[]>([
     {
-      name: "Log in",
-      link: "log-in",
+      name: "Account",
+      link: "/account",
     },
   ]);
+  const { isTablet, isDesktop } = useResize();
+  const pathname = usePathname();
 
   useEffect(() => {
-		if (!isAuth) {
-			return;
-		}
+    if (pathname === "/sign-in" || pathname === "/sign-up") {
+      setIsOnLogInPage(true);
+    } else {
+      setIsOnLogInPage(false);
+    }
+  }, [pathname]);
 
-		if (role === "student") {
-			setMenuList([
-				{
-					name: "Account",
-					link: "/account",
-				},
-				{
-					name: "Log out",
-					link: "/log-out",
-				}
-			])
-		}
+  useEffect(() => {
+    if (!isAuth) {
+      return;
+    }
 
-		if (role === "teacher") {
-			setMenuList([
-				{
-					name: "Account",
-					link: "/account",
-				},
-				{
-					name: "Admin panel",
-					link: "/admin",
-				},
-				{
-					name: "Log out",
-					link: "/log-out",
-				}
-			])
-		}	
+    if (role === "student") {
+      setMenuList([
+        {
+          name: "Account",
+          link: "/account",
+        },
+      ]);
+    }
+
+    if (role === "teacher") {
+      setMenuList([
+        {
+          name: "Account",
+          link: "/account",
+        },
+        {
+          name: "Admin panel",
+          link: "/admin",
+        },
+      ]);
+    }
   }, [isAuth, role]);
 
   return (
-    <Dropdown
-      classButton={styles["account-button"]}
-			classChildren={styles["account-menu"]}
-      buttonContent={
-        <>
-          <span className={styles["account-button__title"]}>Account</span>
-          <AvatarSVG className={styles["account-button__svg"]} />
-        </>
-      }
-    >
-      <ul className={styles["menu"]}>
-        {menuList.map((item) => (
-          <li className={styles["menu__item"]} key={item.name}>
-            <CustomLink
-              className={styles["menu__link"]}
-              href={item.link}
-            >
-              {item.name}
-            </CustomLink>
-          </li>
-        ))}
-      </ul>
-    </Dropdown>
+    !isOnLogInPage &&
+    (isAuth ? (
+      <Dropdown
+        classButton={styles["account-button"]}
+        classChildren={styles["account-menu"]}
+        buttonContent={
+          <>
+            {(isTablet || isDesktop) && (
+              <span className={styles["account-button__title"]}>
+                {userName}
+              </span>
+            )}
+            <AvatarSVG className={styles["account-button__svg"]} />
+          </>
+        }
+      >
+        <ul className={styles["menu"]}>
+          {menuList.map((item) => (
+            <li className={styles["menu__item"]} key={item.name}>
+              <CustomLink className={styles["menu__link"]} href={item.link}>
+                {item.name}
+              </CustomLink>
+            </li>
+          ))}
+					<li className={styles["menu__item"]}>
+						<Button className={styles["menu__link"]}>
+							Log out
+						</Button>
+					</li>
+        </ul>
+      </Dropdown>
+    ) : (
+      <CustomLink className={styles["account-button"]} href="/sign-in">
+        Sign in
+      </CustomLink>
+    ))
   );
 };

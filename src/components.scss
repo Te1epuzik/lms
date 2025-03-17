@@ -21,6 +21,7 @@
 	background-color: transparent;
 	border-radius: $border-radius;
 	border: $border-widget;
+	cursor: pointer;
 	
 	&:hover {
 		@extend .hover;
