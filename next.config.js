@@ -2,7 +2,6 @@
 const nextConfig = {
 	output: "export",
 	basePath: "/next-lms",
-	reactStringMode: true,
 }
 
 module.exports = nextConfig

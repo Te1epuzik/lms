@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "../styles/dropdown.module.scss";
-import { AnimatedDiv } from "@/shared";
+import { AnimatedDiv, Button } from "@/shared";
 
 type TProps = Readonly<{
   buttonContent: React.ReactNode;
@@ -47,10 +47,7 @@ export const Dropdown = ({
 
   return (
     <div className={styles["dropdown"]}>
-      <button
-        onPointerDown={(event) => {
-          event.preventDefault();
-        }}
+      <Button
         onClick={handleToggle}
         className={
           styles["dropdown__button"] +
@@ -62,7 +59,7 @@ export const Dropdown = ({
         type="button"
       >
         {buttonContent}
-      </button>
+      </Button>
       <AnimatedDiv
         className={styles["dropdown__content"] + " " + classChildren}
         trigger={isOpen}

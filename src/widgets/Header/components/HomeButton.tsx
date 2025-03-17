@@ -1,22 +1,14 @@
 import { HomeSVG } from "@/SVG";
 import Link from "next/link";
 import styles from "../styles/homeButton.module.scss";
+import { handlePointerDown, handleDismiss } from "@/utils/activeEmulation";
 
 export const HomeButton = () => {
   return (
     <Link
-      onPointerDown={(event) => {
-        if (event.button !== 0) {
-					return;
-				}
-				
-				setTimeout(() => {
-					if (!(event.target instanceof HTMLAnchorElement)) {
-						return;
-					}
-					event.target.blur();
-				}, 0);
-      }}
+      onPointerDown={handlePointerDown}
+			onPointerUp={handleDismiss}
+			onMouseLeave={handleDismiss}
       className={styles["home-button"]}
       href="/"
     >

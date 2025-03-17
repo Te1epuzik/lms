@@ -10,4 +10,9 @@
 	&__icon {
 		pointer-events: none;
 	}
+
+}
+
+.active:hover {
+	background-color: $color-background;
 }

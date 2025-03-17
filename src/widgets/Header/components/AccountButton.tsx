@@ -5,7 +5,7 @@ import styles from "../styles/accountButton.module.scss";
 import { AvatarSVG } from "@/SVG/AvatarSVG/AvatarSVG";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/store";
-import Link from "next/link";
+import { CustomLink } from "@/shared";
 
 type TMenuItem = {
   name: string;
@@ -72,25 +72,12 @@ export const AccountButton = () => {
       <ul className={styles["menu"]}>
         {menuList.map((item) => (
           <li className={styles["menu__item"]} key={item.name}>
-            <Link
-              onPointerDown={(event) => {
-                if (event.button !== 0) {
-                  return;
-                }
-
-                setTimeout(() => {
-                  if (!(event.target instanceof HTMLAnchorElement)) {
-                    return;
-                  }
-                  event.target.blur();
-                }, 0);
-              }}
+            <CustomLink
               className={styles["menu__link"]}
-              rel="stylesheet"
               href={item.link}
             >
               {item.name}
-            </Link>
+            </CustomLink>
           </li>
         ))}
       </ul>

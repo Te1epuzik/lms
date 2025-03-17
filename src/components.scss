@@ -29,10 +29,6 @@
 	&:focus {
 		@extend .focus;
 	}
-	
-	&:active {
-		@extend .active;
-	}
 }
 
 .button-borderless {
@@ -48,10 +44,6 @@
 	outline: solid 2px $color-highlight;
 	outline-offset: -1px;
 	animation: focus 0.5s forwards;
-}
-
-.active {
-	background-color: $color-background;
 }
 
 @keyframes focus {
