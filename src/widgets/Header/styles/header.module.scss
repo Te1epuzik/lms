@@ -1,0 +1,11 @@
+@use "@/variables.module.scss" as *;
+
+.header {
+	background-color: var(--color-widget-background);
+	height: 7rem;
+	border-bottom: $border-widget;
+	box-shadow: $shadow;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+}

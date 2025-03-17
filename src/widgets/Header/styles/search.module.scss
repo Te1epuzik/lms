@@ -1,0 +1,27 @@
+@use "@/variables.module.scss" as *;
+@use "@/components.scss";
+
+.search {
+	position: relative;
+  max-width: 40rem;
+  height: 100%;
+
+	&__icon {
+		position: absolute;
+		top: 50%;
+		left: .6rem;
+		transform: translateY(-50%);
+		width: 3.2rem;
+		height: 3.2rem;
+		color: $color-secondary;
+		pointer-events: none;
+	}
+
+  &__input {
+		font-size: 1.8rem;
+		@extend .input-text;
+		width: 100%;
+		height: 100%;
+		padding-left: 4.2rem;
+  }
+}

@@ -1,0 +1,70 @@
+@use "@/variables.module.scss" as *;
+
+.input-text {
+  background-color: transparent;
+  border: $border-widget;
+  border-radius: $border-radius;
+	transition: background-color 0.15s ease-in-out;
+
+	&::placeholder {
+		color: $color-secondary;
+	}
+
+  &:focus {
+    @extend .focus;
+		background-color: $color-background;
+  }
+}
+
+.button {
+	font-size: inherit;
+	background-color: transparent;
+	border-radius: $border-radius;
+	border: $border-widget;
+	
+	&:hover {
+		@extend .hover;
+	}
+	
+	&:focus {
+		@extend .focus;
+	}
+	
+	&:active {
+		@extend .active;
+	}
+}
+
+.button-borderless {
+	@extend .button;
+	border: none;
+}
+
+.hover {
+	background-color: $color-hover;
+}
+
+.focus {
+	outline: solid 2px $color-highlight;
+	outline-offset: -1px;
+	animation: focus 0.5s forwards;
+}
+
+.active {
+	background-color: $color-background;
+}
+
+@keyframes focus {
+	0% {
+		outline-offset: 3px;
+		outline: solid 2px transparent;
+	}
+	50% {
+		outline-offset: -3px;
+		outline: solid 2px $color-highlight;
+	}
+	100% {
+		outline-offset: -1px;
+		outline: solid 2px $color-highlight;
+	}
+}

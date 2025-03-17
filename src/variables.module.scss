@@ -1,0 +1,19 @@
+//colors
+$color-background: var(--color-background);
+$color-foreground: var(--color-foreground);
+$color-secondary: #808080;
+$color-highlight: #FF9E00;
+$color-widget-background: var(--color-widget-background);
+$color-border: var(--color-border);
+$color-hover: var(--color-hover);
+$color-active: var(--color-active);
+
+//widgets
+$border-radius: 5px;
+$border-radius-small: 3px;
+$border-widget: 1px solid var(--color-border);
+$shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+//resolutions
+$resolution-tablet: 768px;
+$resolution-desktop: 1024px;

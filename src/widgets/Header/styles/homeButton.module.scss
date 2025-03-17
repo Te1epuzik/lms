@@ -1,0 +1,13 @@
+@use "@/variables.module.scss" as *;
+@use "@/components.scss";
+
+.home-button {
+	@extend .button;
+	width: 5rem;
+	height: 5rem;
+	fill: $color-foreground;
+
+	&__icon {
+		pointer-events: none;
+	}
+}
