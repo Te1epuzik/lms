@@ -3,17 +3,12 @@
 import { Dropdown } from "@/entities";
 import styles from "../styles/accountButton.module.scss";
 import { AvatarSVG } from "@/SVG/AvatarSVG/AvatarSVG";
-import { useEffect, useState } from "react";
 import { useAuthStore } from "@/store";
 import { Button, CustomLink } from "@/shared";
 import { useResize } from "@/hooks";
-import { usePathname } from "next/navigation";
 import { ColorShameSwitcher } from "@/features";
-
-type TMenuItem = {
-  name: string;
-  link: string;
-};
+import { useMenuList } from "../hooks/useMenuList";
+import { redirect } from "next/navigation";
 
 type TProps = Readonly<{
   userName?: string;
@@ -22,92 +17,48 @@ type TProps = Readonly<{
 export const AccountButton = ({ userName = "User" }: TProps) => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const role = useAuthStore((state) => state.role);
-  const [isOnLogInPage, setIsOnLogInPage] = useState<boolean>(false);
-  const [menuList, setMenuList] = useState<TMenuItem[]>([
-    {
-      name: "Account",
-      link: "/account",
-    },
-  ]);
+	const signOut = useAuthStore((state) => state.signOut);
+  const menuList = useMenuList(isAuth, role);
+
+	const handleSignOut = () => {
+		signOut();
+		redirect("/sign-in");
+	}
+
   const { isTablet, isDesktop } = useResize();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (pathname === "/sign-in" || pathname === "/sign-up") {
-      setIsOnLogInPage(true);
-    } else {
-      setIsOnLogInPage(false);
-    }
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!isAuth) {
-      return;
-    }
-
-    if (role === "student") {
-      setMenuList([
-        {
-          name: "Account",
-          link: "/account",
-        },
-      ]);
-    }
-
-    if (role === "teacher") {
-      setMenuList([
-        {
-          name: "Account",
-          link: "/account",
-        },
-        {
-          name: "Admin panel",
-          link: "/admin",
-        },
-      ]);
-    }
-  }, [isAuth, role]);
-
   return (
-    !isOnLogInPage &&
-    (isAuth ? (
-      <Dropdown
-        classButton={styles["account-button"]}
-        classChildren={styles["account-menu"]}
-        buttonContent={
-          <>
-            {(isTablet || isDesktop) && (
-              <span className={styles["account-button__title"]}>
-                {userName}
-              </span>
-            )}
-            <AvatarSVG className={styles["account-button__svg"]} />
-          </>
-        }
-      >
+    <Dropdown
+      classButton={styles["account-button"]}
+      classChildren={styles["account-menu"]}
+      buttonContent={
         <>
-          <ul className={styles["menu"]}>
-            {menuList.map((item) => (
-              <li className={styles["menu__item"]} key={item.name}>
-                <CustomLink className={styles["menu__link"]} href={item.link}>
-                  {item.name}
-                </CustomLink>
-              </li>
-            ))}
-            <li className={styles["menu__item"]}>
-              <Button className={styles["menu__link"]}>Log out</Button>
-            </li>
-          </ul>
-          <div className={styles["theme"]}>
-            <span className={styles["theme__title"]}>Theme</span>
-            <ColorShameSwitcher />
-          </div>
+          {(isTablet || isDesktop) && isAuth && (
+            <span className={styles["account-button__title"]}>{userName}</span>
+          )}
+          <AvatarSVG className={styles["account-button__svg"]} />
         </>
-      </Dropdown>
-    ) : (
-      <CustomLink className={styles["account-button"]} href="/sign-in">
-        Sign in
-      </CustomLink>
-    ))
+      }
+    >
+      <>
+        <ul className={styles["menu"]}>
+          {menuList.map((item) => (
+            <li className={styles["menu__item"]} key={item.name}>
+              <CustomLink className={styles["menu__link"]} href={item.link}>
+                {item.name}
+              </CustomLink>
+            </li>
+          ))}
+          {isAuth && (
+            <li className={styles["menu__item"]}>
+              <Button onClick={handleSignOut} className={styles["menu__link"]}>Log out</Button>
+            </li>
+          )}
+        </ul>
+        <div className={styles["theme"]}>
+          <span className={styles["theme__title"]}>Theme</span>
+          <ColorShameSwitcher />
+        </div>
+      </>
+    </Dropdown>
   );
 };
