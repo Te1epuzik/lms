@@ -1,3 +1,5 @@
+"use client"
+
 import { ComponentPropsWithoutRef } from "react";
 import Link, { LinkProps } from "next/link";
 import { handlePointerDown, handleDismiss } from "@/utils/activeEmulation";

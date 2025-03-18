@@ -2,10 +2,10 @@
 
 .header {
 	background-color: var(--color-widget-background);
-	height: 7rem;
+	height: fit-content;
 	border-bottom: $border-widget;
 	box-shadow: $shadow;
-	padding: 1rem;
+	padding: $padding-small;
 	display: flex;
 	justify-content: space-between;
 	gap: 1rem;
