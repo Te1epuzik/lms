@@ -1,9 +1,9 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
-export const HomeSVG = ({ className }: HTMLAttributes<SVGSVGElement>) => {
+export const HomeSVG = (props: ComponentPropsWithoutRef<"svg">) => {
   return (
     <svg
-      className={className}
+      {...props}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
