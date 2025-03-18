@@ -17,13 +17,13 @@ type TProps = Readonly<{
 export const AccountButton = ({ userName = "User" }: TProps) => {
   const isAuth = useAuthStore((state) => state.isAuth);
   const role = useAuthStore((state) => state.role);
-	const signOut = useAuthStore((state) => state.signOut);
+  const signOut = useAuthStore((state) => state.signOut);
   const menuList = useMenuList(isAuth, role);
 
-	const handleSignOut = () => {
-		signOut();
-		redirect("/sign-in");
-	}
+  const handleSignOut = () => {
+    signOut();
+    redirect("/sign-in");
+  };
 
   const { isTablet, isDesktop } = useResize();
   return (
@@ -42,15 +42,23 @@ export const AccountButton = ({ userName = "User" }: TProps) => {
       <>
         <ul className={styles["menu"]}>
           {menuList.map((item) => (
-            <li className={styles["menu__item"]} key={item.name}>
-              <CustomLink className={styles["menu__link"]} href={item.link}>
+            <li data-close="true" className={styles["menu__item"]} key={item.name}>
+              <CustomLink
+                className={styles["menu__link"]}
+                href={item.link}
+              >
                 {item.name}
               </CustomLink>
             </li>
           ))}
           {isAuth && (
-            <li className={styles["menu__item"]}>
-              <Button onClick={handleSignOut} className={styles["menu__link"]}>Log out</Button>
+            <li data-close="true" className={styles["menu__item"]}>
+              <Button
+                onClick={handleSignOut}
+                className={styles["menu__link"]}
+              >
+                Log out
+              </Button>
             </li>
           )}
         </ul>

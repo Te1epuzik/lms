@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 
 import type { TDivOptions } from "../types";
 
@@ -11,20 +11,24 @@ type TProps = Readonly<{
   ref?: React.RefObject<HTMLDivElement | null>;
 }>;
 
-export const AnimatedDiv = ({
-  children,
-  trigger,
-  className,
-  style,
-  endStyles,
-  options,
-  ref,
-  onMouseEnter,
-  onMouseLeave,
-}: TProps & HTMLAttributes<HTMLDivElement>) => {
+export const AnimatedDiv = (
+  props: TProps & ComponentPropsWithoutRef<"div">,
+) => {
   const [show, setShow] = useState<boolean>(false);
   const [animated, setAnimated] = useState<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const {
+    children,
+    trigger,
+    className,
+    style,
+    endStyles,
+    options,
+    ref,
+    onMouseEnter,
+    onMouseLeave,
+		...restProps
+  } = props;
 
   useEffect(() => {
     if (trigger) {
@@ -54,9 +58,10 @@ export const AnimatedDiv = ({
   return (
     show && (
       <div
+        {...restProps}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        ref={ref ?? undefined}
+        ref={ref}
         className={className}
         style={{
           ...style,

@@ -37,11 +37,17 @@ export const Dropdown = ({
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    document.addEventListener("click", handleDismiss);
+	const handleClickInside = (event: React.MouseEvent) => {
+		if (event.target instanceof HTMLElement && event.target.closest("[data-close='true']")) {
+			setIsOpen(false);
+		}
+	}
 
+  useEffect(() => {
+		document.addEventListener("click", handleDismiss);
+		
     return () => {
-      document.removeEventListener("click", handleDismiss);
+			document.removeEventListener("click", handleDismiss);
     };
   });
 
@@ -66,6 +72,7 @@ export const Dropdown = ({
         options={{ duration: 150, transition: "ease-in-out" }}
         endStyles={{ opacity: 0 }}
         ref={dropdownRef}
+				onClick={handleClickInside}
       >
         {children}
       </AnimatedDiv>

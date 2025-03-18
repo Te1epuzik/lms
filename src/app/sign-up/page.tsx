@@ -6,6 +6,10 @@ export const metadata: Metadata = {
 
 export default function SignUp() {
 	return (
-		<h2>Sign UP page</h2>
+		<div style={{
+			height: "400px"
+		}}>
+			<h2>Sign UP page</h2>
+		</div>
 	);
 }
