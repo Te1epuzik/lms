@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from "react";
 
-export const DarkSVG = (props: ComponentPropsWithoutRef<"svg">) => {
+export const LightSVG = (props: ComponentPropsWithoutRef<"svg">) => {
   return (
     <svg
 			{...props}

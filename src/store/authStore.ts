@@ -5,9 +5,9 @@ import type { TAuthStore } from "./types";
 export const useAuthStore = create<TAuthStore>()(
   devtools((set) => ({
     token: null,
-    isAuth: false,
+    isAuth: true,
     name: null,
-    role: null,
+    role: "teacher",
     signIn: (token: string | null, role: "student" | "teacher") =>
       set({ token, isAuth: !!token, role }, undefined, "auth/signIn"),
     signOut: () =>

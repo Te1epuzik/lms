@@ -1,0 +1,47 @@
+@use "@/variables.module.scss" as *;
+@use "@/components.scss";
+
+.color-shame-switcher {
+  border: $border-widget;
+  height: 2.6rem;
+  width: 7.4rem;
+  border-radius: 1.3rem;
+  display: flex;
+  overflow: hidden;
+  transition: border-color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+
+  &__button {
+    @extend .button-borderless;
+    position: relative;
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 1.2rem;
+    font-size: 12px;
+    fill: $color-secondary;
+
+    .auto-text {
+      color: $color-secondary;
+			font-weight: 700;
+    }
+
+    .svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__button--active {
+    fill: $color-foreground;
+		box-shadow: $shadow;
+    background-color: $color-background;
+
+    .auto-text {
+      color: $color-foreground;
+    }
+  }
+}

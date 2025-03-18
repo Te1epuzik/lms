@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store";
 import { Button, CustomLink } from "@/shared";
 import { useResize } from "@/hooks";
 import { usePathname } from "next/navigation";
+import { ColorShameSwitcher } from "@/features";
 
 type TMenuItem = {
   name: string;
@@ -84,20 +85,24 @@ export const AccountButton = ({ userName = "User" }: TProps) => {
           </>
         }
       >
-        <ul className={styles["menu"]}>
-          {menuList.map((item) => (
-            <li className={styles["menu__item"]} key={item.name}>
-              <CustomLink className={styles["menu__link"]} href={item.link}>
-                {item.name}
-              </CustomLink>
+        <>
+          <ul className={styles["menu"]}>
+            {menuList.map((item) => (
+              <li className={styles["menu__item"]} key={item.name}>
+                <CustomLink className={styles["menu__link"]} href={item.link}>
+                  {item.name}
+                </CustomLink>
+              </li>
+            ))}
+            <li className={styles["menu__item"]}>
+              <Button className={styles["menu__link"]}>Log out</Button>
             </li>
-          ))}
-					<li className={styles["menu__item"]}>
-						<Button className={styles["menu__link"]}>
-							Log out
-						</Button>
-					</li>
-        </ul>
+          </ul>
+          <div className={styles["theme"]}>
+            <span className={styles["theme__title"]}>Theme</span>
+            <ColorShameSwitcher />
+          </div>
+        </>
       </Dropdown>
     ) : (
       <CustomLink className={styles["account-button"]} href="/sign-in">

@@ -1,4 +1,4 @@
-export type TStore = TAuthStore & TNewStore;
+export type TStore = TAuthStore & TThemeStore;
 
 export type TAuthStore = Readonly<{
 	token: string | null;
@@ -9,6 +9,7 @@ export type TAuthStore = Readonly<{
 	signOut: () => void;
 }>;
 
-export type TNewStore = {
-	value: string;
+export type TThemeStore = {
+	theme: "auto" | "light" | "dark";
+	setTheme: (theme: "auto" | "light" | "dark") => void;
 }
