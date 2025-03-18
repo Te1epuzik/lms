@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { handlePointerDown, handleDismiss } from "@/utils/activeEmulation";
 
 export const Button = (props: ComponentPropsWithoutRef<"button">) => {
-  const { children, onPointerDown, onPointerUp, onMouseLeave } = props;
+  const { children, onPointerDown, onPointerUp, onMouseLeave, style } = props;
   return (
     <button
       {...props}
@@ -17,6 +17,10 @@ export const Button = (props: ComponentPropsWithoutRef<"button">) => {
       onMouseLeave={(event) => {
         handleDismiss(event);
         onMouseLeave?.(event);
+      }}
+      style={{
+        color: "inherit",
+        ...style,
       }}
     >
       {children}
