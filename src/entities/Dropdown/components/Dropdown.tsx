@@ -69,8 +69,8 @@ export const Dropdown = ({
       <AnimatedDiv
         className={styles["dropdown__content"] + " " + classChildren}
         trigger={isOpen}
-        options={{ duration: 150, transition: "ease-in-out" }}
-        endStyles={{ opacity: 0 }}
+        options={{ duration: 100, transition: "ease-in-out" }}
+        endStyles={{ opacity: 0, pointerEvents: "none" }}
         ref={dropdownRef}
 				onClick={handleClickInside}
       >
