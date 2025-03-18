@@ -6,7 +6,7 @@ type TProps = Readonly<{
   trigger: boolean;
   endStyles: React.CSSProperties;
   options: TDivOptions;
-	ref?: React.RefObject<HTMLDivElement | null>
+  ref?: React.RefObject<HTMLDivElement | null>;
 }>;
 
 export const AnimatedDiv = ({
@@ -16,7 +16,7 @@ export const AnimatedDiv = ({
   style,
   endStyles,
   options,
-	ref,
+  ref,
   onMouseEnter,
   onMouseLeave,
 }: TProps & HTMLAttributes<HTMLDivElement>) => {
@@ -58,9 +58,8 @@ export const AnimatedDiv = ({
         className={className}
         style={{
           ...style,
-          transition: `all ${options.duration}ms ${
-            options.transition ?? "linear"
-          }`,
+          transitionDuration: `${options.duration}ms`,
+          transitionTimingFunction: `${options.transition ?? "linear"}`,
           ...(animated && endStyles),
         }}
       >
